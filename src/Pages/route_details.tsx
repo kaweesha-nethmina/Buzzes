@@ -64,9 +64,9 @@ export default function RouteDetails() {
   const totalCost = selectedSeats.length * (route.price || 0)
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-500 to-indigo-600">
+    <div className="min-h-screen bg-gradient-to-br from-purple-500 to-indigo-600 ">
       <Header />
-      <Card className="max-w-lg mx-auto bg-white/10 backdrop-blur-lg border-0 mt-10">
+      <Card className="max-w-lg mx-auto bg-white/10 backdrop-blur-lg border-0 mt-10 ">
         <CardHeader>
           <CardTitle className="text-2xl">{route.origin} to {route.destination}</CardTitle>
         </CardHeader>
@@ -119,7 +119,7 @@ export default function RouteDetails() {
         
         {/* Book Ticket Button */}
         <Button
-          className="w-full mt-4 bg-white text-purple-600 hover:bg-gray-100"
+          className="w-full mt-4 bg-white text-purple-600 hover:bg-gray-100 mb-10"
           disabled={!selectedTime || selectedSeats.length === 0}
           onClick={handleBookClick}
         >
