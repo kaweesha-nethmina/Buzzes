@@ -6,7 +6,7 @@ import RouteDetailsScreen from "./Pages/route_details";
 import AuthForm from "./Pages/auth_form";
 import Profile from "./Pages/profile";
 import MyBookings from "./Pages/MyBookings";
-import Roots from "./Pages/Routes";
+import Roots from "./Pages/Roots";
 
 
 

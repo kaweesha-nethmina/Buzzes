@@ -10,17 +10,27 @@ import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/componen
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel"
 import Header from './Header'
 
+// Define the Route type to match Roots
+type Route = {
+  id: number
+  origin: string
+  destination: string
+  time: string
+  price: string
+  timetable: string[]
+}
+
 export default function HomeScreen() {
   const navigate = useNavigate()
   const [searchQuery, setSearchQuery] = useState('')
 
-  const popularRoutes = [
-    { id: 1, origin: 'Panadura', destination: 'Kaduwela', time: '40m', price: 'LKR.300' },
-    { id: 2, origin: 'Galle', destination: 'Matara', time: '1h', price: 'LKR.150' },
-    { id: 3, origin: 'Negombo', destination: 'Colombo', time: '1h 20m', price: 'LKR.200' },
-    { id: 4, origin: 'Jaffna', destination: 'Anuradhapura', time: '5h 30m', price: 'LKR.750' },
-    { id: 5, origin: 'Badulla', destination: 'Colombo', time: '6h', price: 'LKR.600' },
-    { id: 6, origin: 'Kurunegala', destination: 'Kandy', time: '1h 40m', price: 'LKR.250' },
+  const popularRoutes: Route[] = [
+    { id: 1, origin: 'Panadura', destination: 'Kaduwela', time: '40m', price: 'LKR.300', timetable: ['08:00 AM', '10:00 AM', '12:00 PM'] },
+    { id: 2, origin: 'Galle', destination: 'Matara', time: '1h', price: 'LKR.150', timetable: ['09:00 AM', '11:00 AM', '01:00 PM'] },
+    { id: 3, origin: 'Negombo', destination: 'Colombo', time: '1h 20m', price: 'LKR.200', timetable: ['06:00 AM', '12:00 PM', '06:00 PM'] },
+    { id: 4, origin: 'Jaffna', destination: 'Anuradhapura', time: '5h 30m', price: 'LKR.750', timetable: ['08:00 AM', '02:00 PM', '08:00 PM'] },
+    { id: 5, origin: 'Badulla', destination: 'Colombo', time: '6h', price: 'LKR.600', timetable: ['07:00 AM', '01:00 PM', '07:00 PM'] },
+    { id: 6, origin: 'Kurunegala', destination: 'Kandy', time: '1h 40m', price: 'LKR.250', timetable: ['09:00 AM', '11:00 AM', '03:00 PM'] },
   ]
 
   const filteredRoutes = popularRoutes.filter((route) =>
@@ -28,8 +38,8 @@ export default function HomeScreen() {
     route.destination.toLowerCase().includes(searchQuery.toLowerCase())
   )
 
-  const handleCardClick = (routeId: number) => {
-    navigate(`/route-details/${routeId}`)
+  const handleCardClick = (route: Route) => {
+    navigate(`/route-details/${route.id}`, { state: route }) // Pass route as state
   }
 
   return (
@@ -42,7 +52,7 @@ export default function HomeScreen() {
           transition={{ duration: 0.5 }}
           className="text-3xl md:text-4xl font-bold text-center mb-8"
         >
-          Bus Tracker
+          Buzzes
         </motion.h1>
         
         {/* Search Bar */}
@@ -81,7 +91,7 @@ export default function HomeScreen() {
                     transition={{ type: "spring", stiffness: 300 }}
                   >
                     <Card 
-                      onClick={() => handleCardClick(route.id)}
+                      onClick={() => handleCardClick(route)} // Pass entire route data here
                       className="bg-white/10 backdrop-blur-lg border-0 cursor-pointer"
                     >
                       <CardHeader>
@@ -118,7 +128,7 @@ export default function HomeScreen() {
             {filteredRoutes.map((route) => (
               <Card 
                 key={route.id} 
-                onClick={() => handleCardClick(route.id)}
+                onClick={() => handleCardClick(route)} // Pass entire route data here
                 className="bg-white/10 backdrop-blur-lg border-0 cursor-pointer p-4"
               >
                 <CardHeader>
@@ -130,7 +140,7 @@ export default function HomeScreen() {
                 </CardContent>
                 <CardFooter>
                   <Button className="w-full bg-white text-purple-600 hover:bg-gray-100 text-xs md:text-sm">
-                    Select <ArrowRight className="ml-2 h-3 w-3 md:h-4 md:w-4" />
+                    Book Now
                   </Button>
                 </CardFooter>
               </Card>
